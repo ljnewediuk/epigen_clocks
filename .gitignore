@@ -5,6 +5,7 @@
 # Private data files
 /input
 /output
+/SeSaMeRpackages
 
 # Session Data files
 .RData
