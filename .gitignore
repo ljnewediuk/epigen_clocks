@@ -4,6 +4,7 @@
 
 # Private data files
 /input
+/data
 /output
 /SeSaMeRpackages
 /iscans
