@@ -2,6 +2,10 @@
 .Rhistory
 .Rapp.history
 
+# Private data files
+/input
+/output
+
 # Session Data files
 .RData
 
