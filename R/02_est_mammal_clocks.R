@@ -137,7 +137,15 @@ ggplot(output, aes(x = Age, y = DNAmAgeClock3, colour = Year)) +
 
 summary(lm(output$DNAmAgeClock1 ~ output$Age))
 summary(lm(output$DNAmAgeClock2 ~ output$Age))
-summary(lm(output$DNAmAgeClock3 ~ output$Age))
+
+# Model clock 3 (best model)
+clock3mod <- lm(output$DNAmAgeClock3 ~ output$Age)
+
+# Model clock 3 residuals (i.e., AGE ACCELERATION) as function of year and age
+# Checks whether age acceleration is changing over time or if acceleration is 
+# greater in younger/older years
+plot(clock3mod$residuals ~ output$Year)
+plot(clock3mod$residuals ~ output$Age)
 
 # Calculate age error
 age_error <- output %>%
@@ -154,9 +162,11 @@ ggplot(age_error[age_error$Clock %in% c('C3'),], aes(x = Year, y = Error, colour
   geom_point() +
   geom_smooth()
 
-summary(lm(age_error[age_error$Clock == 'C3', ]$Error ~ age_error[age_error$Clock == 'C3', ]$Year))
+abs_err_mod <- lm(age_error[age_error$Clock == 'C3', ]$abs_Error ~ age_error[age_error$Clock == 'C3', ]$Year)
 
-ggplot(age_error, aes(x = Age, y = abs_Error, colour = Clock)) +
+plot(err_mod$residuals ~ err_mod$model$`age_error[age_error$Clock == "C3", ]$Year`)
+
+ggplot(age_error, aes(x = Age, y = Error, colour = Clock)) +
   geom_point() 
 
 ggplot(age_error, aes(x = Sex, y = Error)) + geom_boxplot()
